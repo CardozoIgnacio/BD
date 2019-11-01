@@ -244,3 +244,42 @@ insert into Sistema_Defensa values (2,13,24,25)
 /*Zona Beta, Zona civil
 insert into Sistema_Defensa values (3,14,26,27)
 */
+
+
+
+/*------------------------------------------------*/
+/*---------------Consultas------------------------*/
+/*------------------------------------------------*/
+
+/*Seleccionar elementos*/
+
+select Artillero.nombre_artillero,Artillero.apellido_artillero from Artillero
+
+select Rango.nombre_rango,Artillero.nombre_artillero,Artillero.apellido_artillero from Artillero,Rango where Artillero.id_rango=Rango.id_rango
+
+select Zona.id_zona,CanionXL.id_canion,Rango.nombre_rango,Artillero.nombre_artillero,Artillero.apellido_artillero from Artillero,CanionXL,Rango,Zona where Zona.id_zona=CanionXL.id_zona and CanionXL.id_artillero=Artillero.id_artillero and Rango.id_rango=Artillero.id_rango
+
+/*select distint*/
+
+select distinct Rango.nombre_rango from Rango
+
+select distinct Artillero.nombre_artillero from Artillero
+
+select distinct Rango.nombre_rango from Artillero,CanionXL,Rango where  CanionXL.id_artillero=Artillero.id_artillero and Rango.id_rango=Artillero.id_rango
+
+select  Rango.nombre_rango from Artillero,CanionXL,Rango where  CanionXL.id_artillero=Artillero.id_artillero and Rango.id_rango=Artillero.id_rango
+
+/*update*/
+
+update Rango set Rango.sueldo=500 where Rango.nombre_rango='Soldado'
+
+
+/*Proyecto final de cursada*/
+
+
+select Rango.nombre_rango,Artillero.nombre_artillero, Artillero.apellido_artillero from Artillero,Rango where Artillero.id_rango<=Rango.id_rango and Rango.sueldo<5000
+
+
+
+
+
