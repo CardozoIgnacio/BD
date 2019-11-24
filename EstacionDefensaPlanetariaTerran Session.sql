@@ -1,18 +1,6 @@
 /* Creo base de datos EstacionTerran*/
 create database EstacionDefensaPlanetariaTerran
 
-/*Creo la tabla Planet
-    (PK)id_planeta: Identificador univoco de un Planeta
-    nombre_planeta: Nombre del planeta
-
-create table Planeta(
-    id_planteta int identity(1,1),
-    nombre_planeta varchar(50) not null,
-    
-    primary key (id_planteta)
-)
-*/
-
 
 /*Creo la tabla Zona
     (PK)id_zona:Identificador univoco de una Zona
@@ -29,7 +17,8 @@ create table Zona(
 
 
 /*Creo la tabla Rango
-    (PK)nombre_rango: Cadena de caracteres correspondientes al rango de un soldado
+    (PK)id_rango: identificador univoco de un rango
+    nombre_rango: Cadena de caracteres correspondientes al rango de un soldado
     suelod: cantidad de dinero que le paga el Dominio
 */
 create table Rango
@@ -45,7 +34,7 @@ create table Rango
     (PK)id_artillero: Identificador univoca de una artillero
     nombre_artillero
     apellido_artillero
-    id_rango: identificador univoco de un artillero
+    (FK)id_rango: identificador univoco de un rango
     sexo del artillero F o M
     
 */
@@ -65,9 +54,10 @@ create table Artillero
 
 /*Creo la tabla cañones
     (PK)id_canion: Identificador univoco de un canion
-    id_zona: Zona donde se encuentra emplazada un canion
-    id_artillero: identificador univoco de un artillero
+    (FK)id_zona: Zona donde se encuentra emplazada un canion
+    (FK)id_artillero: identificador univoco de un artillero
     municion: Munciones con las que cuenta un canion maximo de 37767
+    nombre: Designacion de un canion en string
     
 */
 create table CanionXL
@@ -76,6 +66,7 @@ create table CanionXL
     id_zona int not null ,
     id_artillero int not null UNIQUE,
     municion smallint not null DEFAULT 32766,
+    nombre varchar(50) not null,
 
     primary key (id_canion),
     foreign key (id_zona) references Zona(id_zona),
@@ -84,30 +75,7 @@ create table CanionXL
 )
 
 
-/*Sistema de defensa
-    id_zona: identificador de una zona
-    id_canion1: identificador de una canion
-    id_artillero1_canion1: identificador de una artillero
-    id_artillero2_canion1: identificador de una artillero
 
-    (PK) id_sistema_defensa : Identificador univoco del sistema de defensa
-
-create table Sistema_Defensa(
-    
-    id_zona int,
-    id_canion1 int  ,      
-    id_artillero1_canion1 int ,
-    id_artillero2_canion1 int ,
-    id_sistema_defensa int identity(1,1),
-   
-    primary key (id_sistema_defensa),
-    foreign key(id_artillero2_canion1) references Artillero(id_artillero),
-    foreign key (id_artillero2_canion1)references Artillero(id_artillero),
-    foreign key (id_canion1) references CanionXL(id_canion),
-    foreign key (id_zona) references Zona(id_zona)
-)
-
-*/
 
 /*------------------------------------------------*/
 /*---------------Carga de datos-------------------*/
@@ -147,34 +115,34 @@ insert into Rango values('Soldado',1000)
 /*------------------Artillero---------------------*/
 /*------------------------------------------------*/
 
-insert into Artillero values('Nombre-01','Apellido-01 ',6,'M')
-insert into Artillero values('Nombre-02','Apellido-02 ',9,'F')
-insert into Artillero values('Nombre-03','Apellido-03 ',9,'M')
-insert into Artillero values('Nombre-04','Apellido-04 ',6,'F')
-insert into Artillero values('Nombre-05','Apellido-05 ',9,'M')
-insert into Artillero values('Nombre-06','Apellido-06 ',9,'F')
-insert into Artillero values('Nombre-07','Apellido-07 ',6,'M')
-insert into Artillero values('Nombre-08','Apellido-08 ',9,'F')
-insert into Artillero values('Nombre-09','Apellido-09 ',9,'M')
-insert into Artillero values('Nombre-10','Apellido-10 ',7,'F')
-insert into Artillero values('Nombre-11','Apellido-11 ',9,'M')
-insert into Artillero values('Nombre-12','Apellido-12 ',7,'F')
-insert into Artillero values('Nombre-13','Apellido-13 ',9,'M')
-insert into Artillero values('Nombre-14','Apellido-14 ',9,'F')
-insert into Artillero values('Nombre-15','Apellido-15 ',9,'M')
-insert into Artillero values('Nombre-16','Apellido-16 ',10,'F')
-insert into Artillero values('Nombre-17','Apellido-17 ',10,'M')
-insert into Artillero values('Nombre-18','Apellido-18 ',10,'F')
-insert into Artillero values('Nombre-19','Apellido-19 ',10,'M')
-insert into Artillero values('Nombre-20','Apellido-20 ',11,'F')
-insert into Artillero values('Nombre-21','Apellido-21 ',11,'M')
-insert into Artillero values('Nombre-22','Apellido-22 ',11,'F')
-insert into Artillero values('Nombre-23','Apellido-23 ',11,'M')
-insert into Artillero values('Nombre-24','Apellido-24 ',11,'F')
-insert into Artillero values('Nombre-25','Apellido-25 ',11,'M')
-insert into Artillero values('Nombre-26','Apellido-26 ',11,'F')
-insert into Artillero values('Nombre-27','Apellido-27 ',11,'M')
-insert into Artillero values('Nombre-28','Apellido-28 ',11,'F')
+insert into Artillero values('LEANDRO EMANUEL','ACOSTA',6,'M')
+insert into Artillero values('RAMIRA','ADROVER ',9,'F')
+insert into Artillero values('JULIAN','ALAMO ',9,'M')
+insert into Artillero values('BACA','ARREYES ',6,'F')
+insert into Artillero values('FABRICIO','TOMÁS ',9,'M')
+insert into Artillero values('VALENTINA','BRAÑA ',9,'F')
+insert into Artillero values('FERNANDO','TRINIDAD ',6,'M')
+insert into Artillero values('VALENTINA','DESCH ',9,'F')
+insert into Artillero values('NICOLAS','DAITTER ',9,'M')
+insert into Artillero values('FLORENCIA','FRUTOS ',7,'F')
+insert into Artillero values('DIEGO','FUENTES ',9,'M')
+insert into Artillero values('PAULA','GARCIA ',7,'F')
+insert into Artillero values('SEBASTIAN','GLARIA ',9,'M')
+insert into Artillero values('LUCILA','CORREA ',9,'F')
+insert into Artillero values('CARLOS','DIAZ ',9,'M')
+insert into Artillero values('MARÍA','GONZÁLEZ ',10,'F')
+insert into Artillero values('TOMÁS','HUEBRA ',10,'M')
+insert into Artillero values('CANDELA','SINIGER ',10,'F')
+insert into Artillero values('VALENTÍN','ACOSTA ',10,'M')
+insert into Artillero values('ROCIO','SORIA ',11,'F')
+insert into Artillero values('MATEO','JUNCA ',11,'M')
+insert into Artillero values('SELENE','JUAREZ ',11,'F')
+insert into Artillero values('JAVIER','VERA ',11,'M')
+insert into Artillero values('BELEN','DORNES ',11,'F')
+insert into Artillero values('JOAQUÍN','DE GIUSTI ',11,'M')
+insert into Artillero values('MONICA','ELIAS ',11,'F')
+insert into Artillero values('MARIANO','GREGORI ',11,'M')
+insert into Artillero values('CRUZ','FERRERO ',11,'F')
 
 
 
@@ -183,103 +151,125 @@ insert into Artillero values('Nombre-28','Apellido-28 ',11,'F')
 /*---------------Carga de datos-------------------*/
 /*-------------------Canion-----------------------*/
 /*------------------------------------------------*/
- /*(PK)id_canion: Identificador univoco de un canion
-    id_zona: Zona donde se encuentra emplazada un canion
-    id_artillero: identificador univoco de un artillero
-    municion: Munciones con las que cuenta un canion maximo de 37767
-    
-Zona alto valor estrategico*/
-insert into CanionXL values(1,1,32766)
-insert into CanionXL values(1,2,32766)
-insert into CanionXL values(1,3,32766)
+ 
+/*Zona alto valor estrategico*/
+insert into CanionXL values(1,1,32766,'Canion N1 ')
+insert into CanionXL values(1,2,32766,'Canion N2 ')
+insert into CanionXL values(1,3,32766,'Canion N3 ')
 
-insert into CanionXL values(1,4,32766)
-insert into CanionXL values(1,5,32766)
-insert into CanionXL values(1,6,32766)
+insert into CanionXL values(1,4,32766,'Canion N4 ')
+insert into CanionXL values(1,5,32766,'Canion N5 ')
+insert into CanionXL values(1,6,32766,'Canion N6 ')
 
-insert into CanionXL values(1,7,32766)
-insert into CanionXL values(1,8,32766)
-insert into CanionXL values(1,9,32766)
+insert into CanionXL values(1,7,32766,'Canion N7 ')
+insert into CanionXL values(1,8,32766,'Canion N8 ')
+insert into CanionXL values(1,9,32766,'Canion N9 ')
 
 /*Zona militarizada*/
-insert into CanionXL values(2,10,15000)
-insert into CanionXL values(2,11,15000)
+insert into CanionXL values(2,10,15000,'Canion N10')
+insert into CanionXL values(2,11,15000,'Canion N11')
 
-insert into CanionXL values(2,12,15000)
-insert into CanionXL values(2,13,15000)
+insert into CanionXL values(2,12,15000,'Canion N12')
+insert into CanionXL values(2,13,15000,'Canion N13')
 
 /*Residencias civiles*/
-insert into CanionXL values(3,14,5000)
+insert into CanionXL values(3,14,5000,'Canion N14')
+
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
+/*----------------------------------*PROYECTO FINAL DE CURSADA*----------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
+
+/*--------------------------------------------(-1-)----------------------------------------------*/
+/*------------------Lista lo nombre de los artilleros con sueldo menor a 50000-------------------*/
+/*-----------------------------------------------------------------------------------------------*/
+select Artillero.nombre_artillero as 'Nombre', Artillero.apellido_artillero as 'Apellido',Rango.sueldo as 'Sueldo'
+from Artillero,Rango 
+where Artillero.id_rango=Rango.id_rango and Rango.sueldo<50000
+
+/*-------------------------------------------(-2-)-----------------------------------------------*/
+/*---------------------Calcular el promedio de los sueldos de los artilleros---------------------*/
+/*-----------------------------------------------------------------------------------------------*/
+select avg(Rango.sueldo ) as 'Promedio de sueldo artilleros'from  Artillero, Rango where Artillero.id_rango=Rango.id_rango
+/*Auxiliares para verificar el promedio*/
+select count(Rango.sueldo )from  Artillero, Rango where Artillero.id_rango=Rango.id_rango
+select sum(Rango.sueldo) from  Artillero, Rango where Artillero.id_rango=Rango.id_rango
+
+
+
+/*-------------------------------------------(-3-)-----------------------------------------------*/
+/*-----------------------Listar los apellidos que comienzan con la letra d ----------------------*/
+/*-----------------------------------------------------------------------------------------------*/
+select Artillero.apellido_artillero as 'Apellidos con D' from Artillero where Artillero.apellido_artillero like 'D%'
+
+/*-------------------------------------------(-4-)-----------------------------------------------*/
+/*--------------Eliminar todos los registors de la primera zona en la tabla CanionXL-------------*/
+/*-----------------------------------------------------------------------------------------------*/
+delete from CanionXL where CanionXL.id_zona=1
+/*Auxiliar para verificar la correcta eliminacion de los caniones de la zona 1*/
+select CanionXL.nombre as 'Nombre canion',CanionXL.id_zona as 'Id zona' from CanionXL
+
+/*-------------------------------------------(-5-)-----------------------------------------------*/
+/*--------Mostrar el nombre, apellido , id del Canion y el nombre de la Zona(Solo Zona 2)--------*/
+/*-----------------------------------------------------------------------------------------------*/
+select Artillero.nombre_artillero as 'Nombre',Artillero.apellido_artillero as 'Apellido',CanionXL.id_canion as 'Id canion' 
+from
+ (Artillero inner join CanionXL on CanionXL.id_artillero = Artillero.id_artillero) 
+where CanionXL.id_zona=2
+
+/*Misma consulta utilizando el nombre del canion en vez del id del canion*/
+select Artillero.nombre_artillero as 'Nombre',Artillero.apellido_artillero as 'Apellido',CanionXL.nombre as 'Nombre del canion' 
+from
+ (Artillero inner join CanionXL on CanionXL.id_artillero = Artillero.id_artillero) 
+where CanionXL.id_zona=2
 
 
 
 
-
-
-
-
-/*------------------------------------------------*/
-/*---------------Carga de datos-------------------*/
-/*-------------Sistema de defensa-----------------*/
-/*------------------------------------------------*/
-
-/*Zona Alpha alto valor estrategico
-insert into Sistema_Defensa values (1,1,1,2)
-insert into Sistema_Defensa values (1,2,2,3)
-insert into Sistema_Defensa values (1,3,4,5)
-insert into Sistema_Defensa values (1,4,6,7)
-insert into Sistema_Defensa values (1,5,8,9)
-insert into Sistema_Defensa values (1,6,10,11)
-insert into Sistema_Defensa values (1,7,12,13)
-insert into Sistema_Defensa values (1,8,14,15)
-insert into Sistema_Defensa values (1,9,16,17)
-
-/*Zona Omega, zona miliatizada
-insert into Sistema_Defensa values (2,10,18,19)
-insert into Sistema_Defensa values (2,11,20,21)
-insert into Sistema_Defensa values (2,12,22,23)
-insert into Sistema_Defensa values (2,13,24,25)
-
-
-/*Zona Beta, Zona civil
-insert into Sistema_Defensa values (3,14,26,27)
-*/
-
-
-
-/*------------------------------------------------*/
-/*---------------Consultas------------------------*/
-/*------------------------------------------------*/
+/*--------------------------------------------------------*/
+/*------------------Consultas---22/10/19------------------*/
+/*--------------------------------------------------------*/
 
 /*Seleccionar elementos*/
 
-select Artillero.nombre_artillero,Artillero.apellido_artillero from Artillero
+select Artillero.nombre_artillero as 'Nombre',Artillero.apellido_artillero as 'Apellido', Artillero.id_rango as 'Id rango',Artillero.sexo as 'Sexo'
+from Artillero
 
-select Rango.nombre_rango,Artillero.nombre_artillero,Artillero.apellido_artillero from Artillero,Rango where Artillero.id_rango=Rango.id_rango
+select CanionXL.nombre as 'Nombre del canion',CanionXL.municion as 'Municion',CanionXL.id_zona as 'Zona id', CanionXL.id_artillero as 'Identificador Artillero'
+from CanionXL
 
-select Zona.id_zona,CanionXL.id_canion,Rango.nombre_rango,Artillero.nombre_artillero,Artillero.apellido_artillero from Artillero,CanionXL,Rango,Zona where Zona.id_zona=CanionXL.id_zona and CanionXL.id_artillero=Artillero.id_artillero and Rango.id_rango=Artillero.id_rango
+select Rango.nombre_rango as 'Rango', Rango.sueldo as 'Sueldo'
+from Rango
+
+select Zona.nombre_zona as 'Nombre de la Zona',Zona.poblacion as 'Poblacion'
+from Zona
+
+select Rango.nombre_rango as 'Rango',Artillero.nombre_artillero as 'Nombre',Artillero.apellido_artillero as 'Apellido' 
+from Artillero,Rango 
+where Artillero.id_rango=Rango.id_rango
+
+select Zona.id_zona as 'Zona Identificacor',CanionXL.nombre as 'Nombre de canion',Artillero.nombre_artillero as 'Nombre',Artillero.apellido_artillero as 'Apellido',Rango.nombre_rango as 'Rango' 
+from Artillero,CanionXL,Rango,Zona 
+where Zona.id_zona=CanionXL.id_zona and CanionXL.id_artillero=Artillero.id_artillero and Rango.id_rango=Artillero.id_rango
 
 /*select distint*/
 
-select distinct Rango.nombre_rango from Rango
+select distinct Rango.nombre_rango 
+from Rango
 
-select distinct Artillero.nombre_artillero from Artillero
+select distinct Artillero.nombre_artillero as 'Nombres de artilleros unicos'
+from Artillero
 
-select distinct Rango.nombre_rango from Artillero,CanionXL,Rango where  CanionXL.id_artillero=Artillero.id_artillero and Rango.id_rango=Artillero.id_rango
+select distinct Rango.nombre_rango as 'Rangos asignados a Caniones' 
+from Artillero,CanionXL,Rango 
+where  CanionXL.id_artillero=Artillero.id_artillero and Rango.id_rango=Artillero.id_rango
 
-select  Rango.nombre_rango from Artillero,CanionXL,Rango where  CanionXL.id_artillero=Artillero.id_artillero and Rango.id_rango=Artillero.id_rango
+/*sin el distinct*/
+select  Rango.nombre_rango 
+from Artillero,CanionXL,Rango 
+where  CanionXL.id_artillero=Artillero.id_artillero and Rango.id_rango=Artillero.id_rango
 
 /*update*/
 
 update Rango set Rango.sueldo=500 where Rango.nombre_rango='Soldado'
-
-
-/*Proyecto final de cursada*/
-
-
-select Rango.nombre_rango,Artillero.nombre_artillero, Artillero.apellido_artillero from Artillero,Rango where Artillero.id_rango<=Rango.id_rango and Rango.sueldo<5000
-
-
-
-
-
